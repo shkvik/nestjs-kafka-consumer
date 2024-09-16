@@ -1,15 +1,12 @@
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
-import { ClientKafka } from '@nestjs/microservices';
+import { Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
 export class ExampleService  {
+  
+  private logger = new Logger(ExampleService.name);
 
-  constructor(
-    // @Inject('EXAMPLE_SERVICE')
-    // private readonly exampleClient: ClientKafka
-  ) { }
-
-  public getHello(): string {
+  public getHello(data: any): string {
+    this.logger.log(JSON.stringify(data))
     return 'Hello World!';
   }
 }
