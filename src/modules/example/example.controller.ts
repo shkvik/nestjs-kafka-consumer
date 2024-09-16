@@ -1,12 +1,16 @@
 import { Controller, Get } from '@nestjs/common';
 import { ExampleService } from './example.service';
+import { EventPattern, MessagePattern, Payload } from '@nestjs/microservices';
 
 @Controller()
 export class ExampleController {
-  constructor(private readonly appService: ExampleService) {}
+  constructor(
+    private readonly appService: ExampleService
+  ) {}
 
-  @Get()
-  public getHello(): string {
-    return this.appService.getHello();
+  @EventPattern('example.topic')
+  public getHello(@Payload() message: any) {
+    console.log(message);
+    this.appService.getHello();
   }
 }
